@@ -1,10 +1,18 @@
 import { useEffect, useState } from 'react';
 
-function SearchBar({ onSearch, loading, searchTerm, suggestions }) {
+function SearchBar({
+  onSearch,
+  loading,
+  searchTerm,
+  suggestions,
+  suggestionsLoading
+}) {
   const [query, setQuery] = useState(searchTerm || '');
 
   useEffect(() => {
-    setQuery(searchTerm || '');
+    if (searchTerm) {
+      setQuery(searchTerm);
+    }
   }, [searchTerm]);
 
   function handleSubmit(event) {
@@ -26,33 +34,46 @@ function SearchBar({ onSearch, loading, searchTerm, suggestions }) {
 
   return (
     <div className="search-panel">
+      <div className="search-panel__header">
+        <span>Catalog lookup</span>
+        <span>Tickets / API</span>
+      </div>
       <form className="search-bar" onSubmit={handleSubmit}>
-        <label htmlFor="anime-search">Search anime...</label>
+        <label htmlFor="anime-search">Search anime titles</label>
         <div className="search-bar__controls">
           <input
             id="anime-search"
             type="text"
             value={query}
-            placeholder="Try One Piece, Bleach, Frieren..."
+            placeholder="Type an anime name..."
             onChange={(event) => setQuery(event.target.value)}
           />
           <button type="submit" disabled={loading || !query.trim()}>
-            {loading ? 'Scanning...' : 'Search'}
+            {loading ? 'Loading' : 'Find'}
           </button>
         </div>
       </form>
 
+      <p className="quick-searches__label">
+        {suggestionsLoading ? 'Loading Jikan suggestions' : 'Jikan suggestions'}
+      </p>
       <div className="quick-searches" aria-label="Quick searches">
-        {suggestions.map((suggestion) => (
-          <button
-            key={suggestion}
-            type="button"
-            onClick={() => handleSuggestionClick(suggestion)}
-            disabled={loading}
-          >
-            {suggestion}
-          </button>
-        ))}
+        {suggestions.length > 0 ? (
+          suggestions.map((suggestion) => (
+            <button
+              key={suggestion}
+              type="button"
+              onClick={() => handleSuggestionClick(suggestion)}
+              disabled={loading}
+            >
+              {suggestion}
+            </button>
+          ))
+        ) : (
+          <span className="quick-searches__empty">
+            Suggestions will appear here from the Jikan API.
+          </span>
+        )}
       </div>
     </div>
   );
