@@ -18,13 +18,13 @@ function SearchBar({
   function handleSubmit(event) {
     event.preventDefault();
 
-    const trimmedQuery = query.trim();
+    const searchText = query.trim();
 
-    if (!trimmedQuery) {
+    if (!searchText) {
       return;
     }
 
-    onSearch(trimmedQuery);
+    onSearch(searchText);
   }
 
   function handleSuggestionClick(suggestion) {

@@ -10,13 +10,22 @@ function App() {
   const { anime, loading, suggestions, suggestionsLoading, error } =
     useAnime(searchTerm);
 
-  const hasSearched = searchTerm.trim().length > 0;
-  const showNoResults = hasSearched && !loading && !error && anime.length === 0;
-  const resultsTitle = hasSearched ? searchTerm : 'Popular anime';
-  const resultsLabel = hasSearched ? 'Showing results for' : 'Showing';
-  const titleCloud = suggestions.length > 0
-    ? suggestions.slice(0, 5)
-    : ['Monster', 'Cowboy Bebop', 'Frieren', 'Vinland Saga', 'Death Note'];
+  const searchHasText = searchTerm.trim() !== '';
+  const hasAnime = anime.length > 0;
+  const showResults = !loading && !error && hasAnime;
+  const showNoResults = searchHasText && !loading && !error && !hasAnime;
+
+  const resultsTitle = searchHasText ? searchTerm : 'Popular anime';
+  const resultsLabel = searchHasText ? 'Showing results for' : 'Showing';
+  const fallbackTitles = [
+    'Monster',
+    'Cowboy Bebop',
+    'Frieren',
+    'Vinland Saga',
+    'Death Note'
+  ];
+  const titleCloud =
+    suggestions.length > 0 ? suggestions.slice(0, 5) : fallbackTitles;
 
   return (
     <main className="app">
@@ -59,7 +68,7 @@ function App() {
       </section>
 
       <section className="results-section" aria-live="polite">
-        {!loading && !error && anime.length > 0 && (
+        {showResults && (
           <div className="results-header">
             <p>{resultsLabel}</p>
             <h2>{resultsTitle}</h2>
@@ -77,9 +86,9 @@ function App() {
           </div>
         )}
 
-        {!loading && !error && anime.length > 0 && <AnimeList anime={anime} />}
+        {showResults && <AnimeList anime={anime} />}
 
-        {!hasSearched && !loading && anime.length === 0 && (
+        {!searchHasText && !loading && !hasAnime && (
           <div className="empty-state empty-state--welcome">
             <h2>Start with a title you love.</h2>
             <p>Try Cyberpunk, Jujutsu Kaisen, One Piece, or Frieren.</p>
