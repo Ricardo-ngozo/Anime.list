@@ -3,6 +3,17 @@ import ApiErrorMessage from '../components/ApiErrorMessage.jsx';
 import Loader from '../components/Loader.jsx';
 import useWeather from '../hooks/useWeather.js';
 
+// Edit this text to personalize your weather page.
+const weatherText = {
+  smallTitle: 'Open-Meteo weather search',
+  title: 'Weather Dashboard',
+  label: 'Search city',
+  placeholder: 'Try Cape Town, Tokyo, London...',
+  button: 'View Weather',
+  loading: 'Loading weather...',
+  errorTitle: 'Unable to load weather.',
+};
+
 function Weather() {
   const { city, weather, loading, error, searchCity } = useWeather('Tokyo');
   const [query, setQuery] = useState(city);
@@ -15,25 +26,25 @@ function Weather() {
   return (
     <main className="nexus-page data-page">
       <section className="data-header">
-        <p className="nexus-kicker">Open-Meteo live feed</p>
-        <h1>Weather Dashboard</h1>
+        <p className="nexus-kicker">{weatherText.smallTitle}</p>
+        <h1>{weatherText.title}</h1>
         <form className="nexus-search" onSubmit={handleSubmit}>
-          <label htmlFor="weather-city">Search city</label>
+          <label htmlFor="weather-city">{weatherText.label}</label>
           <div>
             <input
               id="weather-city"
               type="search"
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="Try Cape Town, Tokyo, London..."
+              placeholder={weatherText.placeholder}
             />
-            <button type="submit">View Weather</button>
+            <button type="submit">{weatherText.button}</button>
           </div>
         </form>
       </section>
 
-      {loading && <Loader label="Syncing weather data..." />}
-      {error && <ApiErrorMessage title="Unable to load weather." message={error} />}
+      {loading && <Loader label={weatherText.loading} />}
+      {error && <ApiErrorMessage title={weatherText.errorTitle} message={error} />}
 
       {weather && !loading && !error && (
         <section className="weather-panel">

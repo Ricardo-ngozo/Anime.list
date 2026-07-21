@@ -1,5 +1,13 @@
 import FeatureCard from '../components/FeatureCard.jsx';
 
+// Edit this text to personalize your home page.
+const homeText = {
+  smallTitle: 'API collection',
+  title: 'API Nexus',
+  description:
+    'A simple React project that connects my Anime List page with a live weather dashboard.',
+};
+
 const features = [
   {
     title: 'Anime Vault',
@@ -15,13 +23,6 @@ const features = [
     buttonLabel: 'View Weather',
     to: '/weather',
   },
-  {
-    title: 'Space Explorer',
-    description:
-      'Open a window to NASA imagery, daily astronomy features, and Mars rover captures.',
-    buttonLabel: 'Explore Space',
-    to: '/space',
-  },
 ];
 
 function Home() {
@@ -29,12 +30,9 @@ function Home() {
     <main className="nexus-page">
       <section className="nexus-hero">
         <div className="nexus-hero__copy">
-          <p className="nexus-kicker">Multi-API command center</p>
-          <h1>API Nexus</h1>
-          <p>
-            A cyberpunk React hub that connects your existing Anime List with
-            live weather intelligence and NASA space data.
-          </p>
+          <p className="nexus-kicker">{homeText.smallTitle}</p>
+          <h1>{homeText.title}</h1>
+          <p>{homeText.description}</p>
         </div>
       </section>
 
