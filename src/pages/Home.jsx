@@ -2,17 +2,17 @@ import FeatureCard from '../components/FeatureCard.jsx';
 
 // Edit this text to personalize your home page.
 const homeText = {
-  smallTitle: 'API collection',
+  smallTitle: 'First API project (wish me luck)',
   title: 'The Zone',
   description:
-    'A simple React project that connects my Anime List page with a live weather dashboard.',
+    'Connects Anime list and Live weather forecast. Actually whats the weather in Shibuya japan.',
 };
 
 const features = [
   {
     title: 'Anime Vault',
     description:
-      'Search titles, scan gallery-style cards, and keep exploring your anime universe.',
+      'Search titles, scan cards and explore your anime universe .',
     buttonLabel: 'Explore Anime',
     to: '/anime',
   },

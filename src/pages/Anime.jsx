@@ -29,8 +29,8 @@ function Anime() {
         </nav>
 
         <div className="hero__content">
-          <p className="eyebrow">Jikan collection</p>
-          <h1>Anime Finder</h1>
+          <p className="eyebrow">Powered by Jikan api (Found in github)</p>
+          <h1>The Zone Anime Finder</h1>
           <div className="name-cloud" aria-hidden="true">
             {titleCloud.map((title) => (
               <span key={title}>{title}</span>
