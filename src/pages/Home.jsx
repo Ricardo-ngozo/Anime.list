@@ -3,7 +3,7 @@ import FeatureCard from '../components/FeatureCard.jsx';
 // Edit this text to personalize your home page.
 const homeText = {
   smallTitle: 'API collection',
-  title: 'API Nexus',
+  title: 'The Zone',
   description:
     'A simple React project that connects my Anime List page with a live weather dashboard.',
 };
