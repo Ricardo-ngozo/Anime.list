@@ -6,7 +6,7 @@ import ErrorMessage from './components/ErrorMessage.jsx';
 import useAnime from './hooks/useAnime.js';
 
 function App() {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState('Naruto');
   const { anime, loading, suggestions, suggestionsLoading, error } =
     useAnime(searchTerm);
 
@@ -17,15 +17,7 @@ function App() {
 
   const resultsTitle = searchHasText ? searchTerm : 'Popular anime';
   const resultsLabel = searchHasText ? 'Showing results for' : 'Showing';
-  const fallbackTitles = [
-    'Monster',
-    'Cowboy Bebop',
-    'Frieren',
-    'Vinland Saga',
-    'Death Note'
-  ];
-  const titleCloud =
-    suggestions.length > 0 ? suggestions.slice(0, 5) : fallbackTitles;
+  const titleCloud = suggestions.slice(0, 5);
 
   return (
     <main className="app">

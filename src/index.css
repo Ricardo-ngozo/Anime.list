@@ -267,9 +267,14 @@ h1 {
 }
 
 .quick-searches {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
   gap: 8px;
+  max-height: 230px;
+  overflow-y: auto;
+  border: 1px solid #130d0a;
+  padding: 10px;
+  background: rgba(255, 247, 237, 0.52);
 }
 
 .quick-searches button {
@@ -279,6 +284,7 @@ h1 {
   background: transparent;
   font-size: 0.72rem;
   font-weight: 900;
+  text-align: left;
   text-transform: uppercase;
   transition:
     color 180ms ease,

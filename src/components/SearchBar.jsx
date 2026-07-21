@@ -10,9 +10,7 @@ function SearchBar({
   const [query, setQuery] = useState(searchTerm || '');
 
   useEffect(() => {
-    if (searchTerm) {
-      setQuery(searchTerm);
-    }
+    setQuery(searchTerm || '');
   }, [searchTerm]);
 
   function handleSubmit(event) {
@@ -55,7 +53,9 @@ function SearchBar({
       </form>
 
       <p className="quick-searches__label">
-        {suggestionsLoading ? 'Loading Jikan suggestions' : 'Jikan suggestions'}
+        {suggestionsLoading
+          ? 'Loading anime suggestions'
+          : `Select an anime (${suggestions.length})`}
       </p>
       <div className="quick-searches" aria-label="Quick searches">
         {suggestions.length > 0 ? (
