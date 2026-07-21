@@ -724,7 +724,6 @@ h1 {
 .feature-card,
 .weather-hero-card,
 .metric-card,
-.space-apod,
 .mars-card {
   border: 1px solid rgba(45, 212, 191, 0.28);
   border-radius: 8px;
@@ -757,7 +756,6 @@ h1 {
 }
 
 .feature-card h2,
-.space-apod__content h2,
 .section-heading h2 {
   color: #f8ffff;
   font-size: clamp(1.45rem, 3vw, 2.25rem);
@@ -918,7 +916,6 @@ h1 {
 }
 
 .metric-card span,
-.space-apod__content span,
 .mars-card span {
   color: #78ffb7;
   font-size: 0.76rem;
@@ -932,38 +929,11 @@ h1 {
   line-height: 1;
 }
 
-.space-apod {
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.9fr);
-  gap: 0;
-  overflow: hidden;
-}
-
-.space-apod__media {
-  min-height: 420px;
-  background: #020607;
-}
-
-.space-apod__media img,
-.space-apod__media iframe,
 .mars-card img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-.space-apod__media iframe {
-  border: 0;
-}
-
-.space-apod__content {
-  padding: clamp(28px, 5vw, 46px);
-}
-
-.space-apod__content p {
-  color: #b6eef1;
-  line-height: 1.72;
 }
 
 .mars-section {
@@ -1011,14 +981,10 @@ h1 {
 @media (max-width: 900px) {
   .feature-grid,
   .weather-panel,
-  .space-apod,
   .mars-grid {
     grid-template-columns: 1fr;
   }
 
-  .space-apod__media {
-    min-height: 320px;
-  }
 }
 
 @media (max-width: 640px) {
@@ -1144,7 +1110,6 @@ h1 {
 .feature-card,
 .weather-hero-card,
 .metric-card,
-.space-apod,
 .mars-card {
   border: 1px solid #2b211d;
   border-radius: 0;
@@ -1165,7 +1130,6 @@ h1 {
 }
 
 .feature-card h2,
-.space-apod__content h2,
 .section-heading h2 {
   color: #130d0a;
   font-family: Georgia, "Times New Roman", serif;
