@@ -1,4 +1,4 @@
-import ErrorMessage from '../components/ErrorMessage.jsx';
+import ApiErrorMessage from '../components/ApiErrorMessage.jsx';
 import Loader from '../components/Loader.jsx';
 import useNASA from '../hooks/useNASA.js';
 
@@ -14,7 +14,7 @@ function Space() {
       </section>
 
       {loading && <Loader label="Receiving NASA signal..." />}
-      {error && <ErrorMessage title="Unable to load space data." message={error} />}
+      {error && <ApiErrorMessage title="Unable to load space data." message={error} />}
 
       {apod && !loading && !error && (
         <>

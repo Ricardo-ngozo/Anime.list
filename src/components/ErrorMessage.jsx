@@ -1,7 +1,7 @@
-function ErrorMessage({ title = 'Unable to load anime.', message }) {
+function ErrorMessage({ message }) {
   return (
     <div className="message message--error" role="alert">
-      <h2>{title}</h2>
+      <h2>Unable to load anime.</h2>
       <p>{message || 'Please check your internet connection.'}</p>
     </div>
   );

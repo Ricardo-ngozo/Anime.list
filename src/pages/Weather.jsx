@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import ErrorMessage from '../components/ErrorMessage.jsx';
+import ApiErrorMessage from '../components/ApiErrorMessage.jsx';
 import Loader from '../components/Loader.jsx';
 import useWeather from '../hooks/useWeather.js';
 
@@ -33,7 +33,7 @@ function Weather() {
       </section>
 
       {loading && <Loader label="Syncing weather data..." />}
-      {error && <ErrorMessage title="Unable to load weather." message={error} />}
+      {error && <ApiErrorMessage title="Unable to load weather." message={error} />}
 
       {weather && !loading && !error && (
         <section className="weather-panel">
