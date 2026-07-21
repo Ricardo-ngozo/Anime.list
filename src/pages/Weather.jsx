@@ -26,6 +26,12 @@ function Weather() {
   return (
     <main className="nexus-page data-page">
       <section className="data-header">
+        <img
+          className="page-art page-art--weather"
+          src="/painting-blindfold.png"
+          alt=""
+          aria-hidden="true"
+        />
         <p className="nexus-kicker">{weatherText.smallTitle}</p>
         <h1>{weatherText.title}</h1>
         <form className="nexus-search" onSubmit={handleSubmit}>

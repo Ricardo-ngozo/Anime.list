@@ -29,6 +29,18 @@ function Home() {
   return (
     <main className="nexus-page">
       <section className="nexus-hero">
+        <img
+          className="page-art page-art--home-left"
+          src="/painting-tragedy.png"
+          alt=""
+          aria-hidden="true"
+        />
+        <img
+          className="page-art page-art--home-right"
+          src="/painting-girl-pearl.png"
+          alt=""
+          aria-hidden="true"
+        />
         <div className="nexus-hero__copy">
           <p className="nexus-kicker">{homeText.smallTitle}</p>
           <h1>{homeText.title}</h1>

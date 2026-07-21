@@ -56,6 +56,12 @@ function Anime() {
           alt=""
           aria-hidden="true"
         />
+        <img
+          className="page-art page-art--anime"
+          src="/painting-silence.png"
+          alt=""
+          aria-hidden="true"
+        />
       </section>
 
       <section className="results-section" aria-live="polite">
