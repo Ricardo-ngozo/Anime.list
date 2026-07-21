@@ -10,7 +10,7 @@ function Navbar() {
   return (
     <header className="nexus-nav">
       <NavLink className="nexus-nav__brand" to="/">
-        API Nexus
+        The Zone
       </NavLink>
       <nav className="nexus-nav__links" aria-label="Primary navigation">
         {navItems.map((item) => (

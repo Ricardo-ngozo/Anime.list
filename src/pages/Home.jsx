@@ -36,7 +36,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="feature-grid" aria-label="API Nexus features">
+      <section className="feature-grid" aria-label="The Zone features">
         {features.map((feature) => (
           <FeatureCard key={feature.title} {...feature} />
         ))}
