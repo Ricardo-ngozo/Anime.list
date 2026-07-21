@@ -33,8 +33,8 @@ function SearchBar({
   return (
     <div className="search-panel">
       <div className="search-panel__header">
-        <span>Catalog lookup</span>
-        <span>Tickets / API</span>
+        <span>Catalog</span>
+        <span>API</span>
       </div>
       <form className="search-bar" onSubmit={handleSubmit}>
         <label htmlFor="anime-search">Search anime titles</label>

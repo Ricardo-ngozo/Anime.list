@@ -23,9 +23,8 @@ function Anime() {
     <main className="app">
       <section className="hero">
         <nav className="poster-nav" aria-label="Poster navigation">
-          <span className="poster-plus">+</span>
           <span className="poster-brand">Anime</span>
-          <span className="poster-ticket">Search</span>
+
         </nav>
 
         <div className="hero__content">
