@@ -4,7 +4,6 @@ const navItems = [
   { to: '/', label: 'Home' },
   { to: '/anime', label: 'Anime' },
   { to: '/weather', label: 'Weather' },
-  { to: '/space', label: 'Space' },
 ];
 
 function Navbar() {
