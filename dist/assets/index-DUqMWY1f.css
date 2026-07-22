@@ -1207,3 +1207,123 @@ h1 {
   border-top-color: #f3260d;
   color: #f8d9cc;
 }
+
+/* Painting layout: simple decorative images that match the poster design. */
+.hero,
+.nexus-hero,
+.data-header {
+  isolation: isolate;
+}
+
+.page-art {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  object-fit: contain;
+  object-position: bottom center;
+  filter:
+    saturate(0.88)
+    contrast(1.05)
+    drop-shadow(0 22px 18px rgba(54, 9, 3, 0.36));
+}
+
+.hero__content,
+.nexus-hero__copy,
+.data-header > :not(.page-art) {
+  position: relative;
+  z-index: 3;
+}
+
+.page-art--anime {
+  right: 3%;
+  bottom: 0;
+  width: min(250px, 26vw);
+  max-height: 62%;
+  opacity: 0.92;
+}
+
+.page-art--home-left {
+  left: -20px;
+  bottom: 0;
+  width: min(245px, 26vw);
+  max-height: 82%;
+  opacity: 0.78;
+}
+
+.page-art--home-right {
+  right: 7%;
+  bottom: 0;
+  width: min(270px, 30vw);
+  max-height: 88%;
+  opacity: 0.88;
+}
+
+.page-art--weather {
+  right: 24px;
+  bottom: 0;
+  width: min(270px, 30vw);
+  max-height: 92%;
+  opacity: 0.78;
+}
+
+.nexus-hero__copy {
+  width: min(620px, 68%);
+  padding: 22px;
+  background: rgba(255, 238, 225, 0.84);
+  border: 1px solid #130d0a;
+  box-shadow: 10px 10px 0 #130d0a;
+}
+
+.nexus-hero__copy h1 {
+  margin-bottom: 12px;
+}
+
+.data-header {
+  position: relative;
+  overflow: hidden;
+  min-height: 330px;
+  align-content: center;
+  padding-right: min(340px, 34vw);
+}
+
+.data-header .nexus-search {
+  max-width: 680px;
+}
+
+.weather-panel {
+  margin-top: 42px;
+}
+
+@media (max-width: 760px) {
+  .page-art--anime,
+  .page-art--home-right,
+  .page-art--weather {
+    right: -26px;
+    width: 180px;
+    opacity: 0.34;
+  }
+
+  .page-art--home-left {
+    display: none;
+  }
+
+  .nexus-hero__copy {
+    width: 100%;
+    padding: 18px;
+    box-shadow: 6px 6px 0 #130d0a;
+  }
+
+  .data-header {
+    min-height: auto;
+    padding: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-art--anime,
+  .page-art--home-right,
+  .page-art--weather {
+    width: 140px;
+    opacity: 0.24;
+  }
+}
