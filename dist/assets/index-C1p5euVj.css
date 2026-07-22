@@ -1235,11 +1235,16 @@ h1 {
 }
 
 .page-art--anime {
-  right: 3%;
+  left: 2%;
   bottom: 0;
-  width: min(250px, 26vw);
-  max-height: 62%;
-  opacity: 0.92;
+  width: min(220px, 22vw);
+  max-height: 54%;
+  opacity: 0.72;
+}
+
+.hero .poster-portrait {
+  right: 8%;
+  width: min(280px, 28vw);
 }
 
 .page-art--home-left {
@@ -1303,6 +1308,13 @@ h1 {
     opacity: 0.34;
   }
 
+  .page-art--anime {
+    right: auto;
+    left: -22px;
+    width: 145px;
+    opacity: 0.24;
+  }
+
   .page-art--home-left {
     display: none;
   }
@@ -1325,5 +1337,10 @@ h1 {
   .page-art--weather {
     width: 140px;
     opacity: 0.24;
+  }
+
+  .page-art--anime {
+    width: 120px;
+    opacity: 0.18;
   }
 }
