@@ -1,8 +1,9 @@
-function ErrorMessage({ message }) {
+function ErrorMessage({ message, onRetry }) {
   return (
     <div className="message message--error" role="alert">
-      <h2>Unable to load anime.</h2>
+      <h2>Live search is unavailable.</h2>
       <p>{message || 'Please check your internet connection.'}</p>
+      {onRetry && <button className="retry-button" type="button" onClick={onRetry}>Retry live search</button>}
     </div>
   );
 }

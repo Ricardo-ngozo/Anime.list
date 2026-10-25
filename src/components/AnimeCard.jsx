@@ -8,11 +8,24 @@ function AnimeCard({ anime }) {
   const rating = anime.rating || 'Not rated';
   const genres = anime.genres?.length ? anime.genres : [];
 
+  if (anime.isSample) {
+    return (
+      <article className="anime-card anime-card--sample">
+        <div className="anime-card__sample-art" aria-hidden="true">{title.slice(0, 1)}</div>
+        <div className="anime-card__content">
+          <p className="sample-label">Offline sample</p>
+          <h2>{title}</h2>
+          <p>A saved example title. Live artwork, ratings and episode details are unavailable.</p>
+        </div>
+      </article>
+    );
+  }
+
   return (
     <article className="anime-card">
       <div className="anime-card__image-wrap">
         {imageUrl ? (
-          <img src={imageUrl} alt={title} className="anime-card__image" />
+          <img src={imageUrl} alt={title} className="anime-card__image" loading="lazy" />
         ) : (
           <div className="anime-card__placeholder">No image</div>
         )}

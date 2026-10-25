@@ -7,17 +7,22 @@ import useAnime from '../hooks/useAnime.js';
 
 function Anime() {
   const [searchTerm, setSearchTerm] = useState('Naruto');
-  const { anime, loading, suggestions, suggestionsLoading, error } =
+  const { anime, loading, suggestions, suggestionsLoading, error, retry, source } =
     useAnime(searchTerm);
 
   const searchHasText = searchTerm.trim() !== '';
   const hasAnime = anime.length > 0;
-  const showResults = !loading && !error && hasAnime;
+  const showResults = !loading && hasAnime;
   const showNoResults = searchHasText && !loading && !error && !hasAnime;
 
   const resultsTitle = searchHasText ? searchTerm : 'Popular anime';
   const resultsLabel = searchHasText ? 'Showing results for' : 'Showing';
   const titleCloud = suggestions.slice(0, 5);
+
+  function search(nextTerm) {
+    if (nextTerm.trim() === searchTerm.trim()) retry();
+    else setSearchTerm(nextTerm.trim());
+  }
 
   return (
     <main className="app">
@@ -28,7 +33,7 @@ function Anime() {
         </nav>
 
         <div className="hero__content">
-          <p className="eyebrow">Powered by Jikan api (Found in github)</p>
+          <p className="eyebrow">Anime discovery · Jikan API</p>
           <h1>The Zone Anime Finder</h1>
           <div className="name-cloud" aria-hidden="true">
             {titleCloud.map((title) => (
@@ -42,7 +47,7 @@ function Anime() {
           </p>
 
           <SearchBar
-            onSearch={setSearchTerm}
+            onSearch={search}
             loading={loading}
             searchTerm={searchTerm}
             suggestions={suggestions}
@@ -64,17 +69,22 @@ function Anime() {
         />
       </section>
 
-      <section className="results-section" aria-live="polite">
+      <section className="results-section" aria-live="polite" aria-busy={loading}>
+        {error && <ErrorMessage message={error} onRetry={retry} />}
+        {source === 'sample' && !loading && (
+          <div className="sample-notice" role="status">
+            <strong>Sample mode — these are not live search results.</strong>
+            <p>Saved example titles keep the demo usable while live search is unavailable. Select another suggested title or retry live search.</p>
+          </div>
+        )}
         {showResults && (
           <div className="results-header">
-            <p>{resultsLabel}</p>
+            <p>{source === 'sample' ? 'Saved examples matching' : resultsLabel}</p>
             <h2>{resultsTitle}</h2>
           </div>
         )}
 
         {loading && <Spinner />}
-
-        {error && <ErrorMessage message={error} />}
 
         {showNoResults && (
           <div className="empty-state">
@@ -84,6 +94,13 @@ function Anime() {
         )}
 
         {showResults && <AnimeList anime={anime} />}
+
+        {source === 'sample' && !loading && !hasAnime && (
+          <div className="empty-state">
+            <h2>No saved sample matches “{searchTerm}”.</h2>
+            <p>Live search is unavailable. Try one of the suggested titles above to explore an example.</p>
+          </div>
+        )}
 
         {!searchHasText && !loading && !hasAnime && (
           <div className="empty-state empty-state--welcome">

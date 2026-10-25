@@ -1,75 +1,34 @@
-import { useEffect, useState } from 'react';
-
-const defaultSuggestions = [
-  'Naruto',
-  'One Piece',
-  'Bleach',
-  'Death Note',
-  'Dragon Ball',
-  'Chainsaw Man',
-  'Tokyo Ghoul',
-  'Fullmetal Alchemist',
-  'Vinland Saga',
-];
+import { useCallback, useEffect, useState } from 'react';
+import { fetchAnime } from '../lib/animeSearch.js';
+import { sampleTitles, suggestedTitles } from '../data/animeSamples.js';
 
 function useAnime(searchTerm) {
-  const [anime, setAnime] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [state, setState] = useState({ anime: [], loading: true, error: '', source: 'live' });
+  const [attempt, setAttempt] = useState(0);
+  const retry = useCallback(() => setAttempt(value => value + 1), []);
 
-  // Load anime cards whenever the user submits a new search.
   useEffect(() => {
-    const trimmedSearch = searchTerm.trim();
-
-    if (!trimmedSearch) {
-      setAnime([]);
-      setLoading(false);
-      setError('');
-      return;
+    const query = searchTerm.trim();
+    const controller = new AbortController();
+    if (!query) {
+      setState({ anime: [], loading: false, error: '', source: 'live' });
+      return () => controller.abort();
     }
-
-    async function fetchAnime() {
-      try {
-        setLoading(true);
-        setError('');
-        setAnime([]);
-
-        const url = `https://api.jikan.moe/v4/anime?q=${encodeURIComponent(
-          trimmedSearch
-        )}&limit=20`;
-        const response = await fetch(url);
-
-        if (!response.ok) {
-          throw new Error('Unable to load anime.');
+    setState({ anime: [], loading: true, error: '', source: 'live' });
+    fetchAnime(query, { signal: controller.signal })
+      .then(anime => {
+        if (!controller.signal.aborted) setState({ anime, loading: false, error: '', source: 'live' });
+      })
+      .catch(error => {
+        // An old search must not overwrite a new query or update after navigation.
+        if (!controller.signal.aborted) {
+          setState({ anime: sampleTitles(query), loading: false, error: error.message, source: 'sample' });
         }
+      });
+    return () => controller.abort();
+  }, [searchTerm, attempt]);
 
-        const data = await response.json();
-
-        if (!Array.isArray(data?.data)) {
-          throw new Error('Something went wrong.');
-        }
-
-        setAnime(data.data);
-      } catch (error) {
-        setAnime([]);
-        setError(
-          error.message || 'Please check your internet connection and try again.'
-        );
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchAnime();
-  }, [searchTerm]);
-
-  return {
-    anime,
-    loading,
-    suggestions: defaultSuggestions,
-    suggestionsLoading: false,
-    error
-  };
+  return { ...state, retry, suggestions: suggestedTitles, suggestionsLoading: false };
 }
 
 export default useAnime;

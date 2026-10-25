@@ -42,6 +42,7 @@ function SearchBar({
           <input
             id="anime-search"
             type="text"
+            maxLength={100}
             value={query}
             placeholder="Type an anime name..."
             onChange={(event) => setQuery(event.target.value)}
