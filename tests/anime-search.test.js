@@ -26,7 +26,7 @@ test('search encodes the title and uses the same-origin endpoint', async () => {
   assert.deepEqual(await fetchAnime(' A & B ', { request: async url => {
     path = url;
     return json({ data: items });
-  } }), items);
+  } }), { anime: items, provider: 'Jikan' });
   assert.equal(path, '/api/anime?q=A%20%26%20B');
 });
 
@@ -39,7 +39,7 @@ test('repeat requests for the same title are sent again', async () => {
 });
 
 test('an empty live result stays empty rather than becoming sample results', async () => {
-  assert.deepEqual(await fetchAnime('unmatched', { request: async () => json({ data: [] }) }), []);
+  assert.deepEqual(await fetchAnime('unmatched', { request: async () => json({ data: [] }) }), { anime: [], provider: 'Jikan' });
 });
 
 test('malformed API data is an error', async () => {
@@ -134,4 +134,28 @@ test('samples are clearly flagged, matched locally and contain no invented live 
   assert.equal(sample.score, undefined);
   assert.equal(sample.episodes, undefined);
   assert.deepEqual(sampleTitles('not-a-saved-title'), []);
+});
+
+test('backup returns attributed live results when Jikan fails', async () => {
+  const calls = [];
+  const res = await callHandler({ fetchImpl: async (url, options) => {
+    calls.push(String(url));
+    if (String(url).includes('jikan')) return json({}, 503);
+    assert.equal(options.method, 'POST');
+    assert.equal(JSON.parse(options.body).variables.search, 'Naruto');
+    return json({ data: { Page: { media: [{ id: 1735, idMal: 1735, title: { romaji: 'Naruto: Shippuuden' }, averageScore: 79, episodes: 500, genres: ['Action'] }] } } });
+  } });
+  assert.equal(calls.length, 2);
+  assert.equal(res.status, 200);
+  assert.equal(res.body.provider, 'AniList');
+  assert.equal(res.body.data[0].score, 7.9);
+  assert.equal(res.body.data[0].title, 'Naruto: Shippuuden');
+});
+
+test('empty primary results do not trigger a different provider', async () => {
+  let calls = 0;
+  const res = await callHandler({ fetchImpl: async () => { calls++; return json({ data: [] }); } });
+  assert.equal(calls, 1);
+  assert.equal(res.status, 200);
+  assert.deepEqual(res.body.data, []);
 });
