@@ -7,7 +7,7 @@ import useAnime from '../hooks/useAnime.js';
 
 function Anime() {
   const [searchTerm, setSearchTerm] = useState('Naruto');
-  const { anime, loading, suggestions, suggestionsLoading, error, retry, source } =
+  const { anime, loading, suggestions, suggestionsLoading, error, retry, source, provider } =
     useAnime(searchTerm);
 
   const searchHasText = searchTerm.trim() !== '';
@@ -16,7 +16,6 @@ function Anime() {
   const showNoResults = searchHasText && !loading && !error && !hasAnime;
 
   const resultsTitle = searchHasText ? searchTerm : 'Popular anime';
-  const resultsLabel = searchHasText ? 'Showing results for' : 'Showing';
   const titleCloud = suggestions.slice(0, 5);
 
   function search(nextTerm) {
@@ -33,7 +32,7 @@ function Anime() {
         </nav>
 
         <div className="hero__content">
-          <p className="eyebrow">Anime discovery · Jikan API</p>
+          <p className="eyebrow">Anime discovery · live title search</p>
           <h1>The Zone Anime Finder</h1>
           <div className="name-cloud" aria-hidden="true">
             {titleCloud.map((title) => (
@@ -79,7 +78,7 @@ function Anime() {
         )}
         {showResults && (
           <div className="results-header">
-            <p>{source === 'sample' ? 'Saved examples matching' : resultsLabel}</p>
+            <p>{source === 'sample' ? 'Saved examples matching' : `Live results from ${provider}`}</p>
             <h2>{resultsTitle}</h2>
           </div>
         )}

@@ -16,7 +16,7 @@ export async function fetchAnime(query, {
     const payload = await response.json();
     if (!response.ok) throw new Error(payload?.error || 'Live search is temporarily unavailable.');
     if (!Array.isArray(payload?.data)) throw new Error('Live search returned an unreadable response.');
-    return payload.data;
+    return { anime: payload.data, provider: payload.provider || 'Jikan' };
   } catch (error) {
     if (signal?.aborted) throw new DOMException('Search cancelled', 'AbortError');
     if (controller.signal.aborted) throw new Error('Live search took too long. Please retry.');

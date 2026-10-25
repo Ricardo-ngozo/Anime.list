@@ -16,8 +16,8 @@ function useAnime(searchTerm) {
     }
     setState({ anime: [], loading: true, error: '', source: 'live' });
     fetchAnime(query, { signal: controller.signal })
-      .then(anime => {
-        if (!controller.signal.aborted) setState({ anime, loading: false, error: '', source: 'live' });
+      .then(({ anime, provider }) => {
+        if (!controller.signal.aborted) setState({ anime, provider, loading: false, error: '', source: 'live' });
       })
       .catch(error => {
         // An old search must not overwrite a new query or update after navigation.
